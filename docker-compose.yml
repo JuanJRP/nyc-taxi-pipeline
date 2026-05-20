@@ -1,0 +1,61 @@
+version: "3.8"
+
+# =============================================================
+# NYC TAXI DATA PIPELINE — STACK COMPLETO
+# =============================================================
+# Un solo comando para levantar todo:
+#   docker compose up --build
+#
+# Servicios:
+#   mongodb   → almacenamiento NoSQL de agregados (puerto 27017)
+#   pipeline  → ingesta + Spark + visualización (corre y termina)
+#
+# Puertos expuestos:
+#   27017 → MongoDB
+#   8080  → Spark Web UI (mientras corre el pipeline)
+# =============================================================
+
+networks:
+  taxi_net:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  pipeline_data:
+
+services:
+
+  # ── MONGODB ────────────────────────────────────────────────
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    networks: [taxi_net]
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: taxi2025
+      MONGO_INITDB_DATABASE: nyc_taxi
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  # ── PIPELINE (ingesta + Spark + visualización) ─────────────
+  pipeline:
+    build: .
+    container_name: pipeline
+    networks: [taxi_net]
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: "mongodb://admin:taxi2025@mongodb:27017/nyc_taxi?authSource=admin"
+      YEARS: "2025, 2026"
+    volumes:
+      - pipeline_data:/app/data 
+      - ./charts:/app/charts  
+      - ./scripts:/app/scripts
+    ports:
+      - "4040:4040" 
