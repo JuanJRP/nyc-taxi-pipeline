@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Ruff (syntax errors and pyflakes)
+        run: pip install ruff && ruff check --select E9,F scripts
+      - name: Compile all scripts
+        run: python -m py_compile scripts/*.py
+      - name: Validate docker-compose.yml
+        run: docker compose config -q
+      - name: Build the pipeline image
+        run: docker build -t nyc-taxi-pipeline .

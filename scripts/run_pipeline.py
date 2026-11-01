@@ -13,7 +13,7 @@ Variables de entorno:
 =============================================================
 """
 
-import os, sys, time
+import os, time
 
 def banner(title: str):
     print("\n" + "═" * 65)
@@ -23,7 +23,7 @@ def banner(title: str):
 t_total = time.time()
 
 banner("NYC TAXI DATA PIPELINE — INICIO")
-print(f"  Dominio           : Movilidad urbana — Taxis amarillos NYC (TLC)")
+print("  Dominio           : Movilidad urbana — Taxis amarillos NYC (TLC)")
 print(f"  Años configurados : {os.environ.get('YEARS', '2023,2024')}")
 print(f"  MongoDB URI       : {os.environ.get('MONGO_URI', 'no configurado')}")
 print()
@@ -58,7 +58,7 @@ visualizacion.run()
 # ── Resumen ──────────────────────────────────────────────────
 banner("PIPELINE COMPLETADO")
 print(f"  Tiempo total: {(time.time() - t_total)/60:.1f} minutos")
-print(f"  Gráficas en : /app/charts/")
-print(f"  MongoDB     : nyc_taxi (colecciones: agg_by_hour, agg_by_day,")
-print(f"                           agg_by_zone, agg_payment, pipeline_summary)")
+print("  Gráficas en : /app/charts/")
+print("  MongoDB     : nyc_taxi (colecciones: agg_by_hour, agg_by_day,")
+print("                           agg_by_zone, agg_payment, pipeline_summary)")
 print("═" * 65)

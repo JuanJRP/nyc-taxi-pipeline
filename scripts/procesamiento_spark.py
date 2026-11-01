@@ -185,7 +185,7 @@ def run():
     print("             duration, speed, tip_ratio, payment_label, day_name")
 
     # ── Etapa 4: Guardar Parquet procesado ──────────────────────
-    print(f"\n💾 Guardando Parquet procesado (particionado por año/mes)...")
+    print("\n💾 Guardando Parquet procesado (particionado por año/mes)...")
     (df_feat
         .repartition(48, "pickup_year", "pickup_month")
         .write.mode("overwrite")

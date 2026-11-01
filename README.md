@@ -1,7 +1,14 @@
 # NYC Taxi Data Pipeline — Open Source
 
+[![CI](https://github.com/JuanJRP/nyc-taxi-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/JuanJRP/nyc-taxi-pipeline/actions/workflows/ci.yml)
+![PySpark](https://img.shields.io/badge/PySpark-3.5-E25A1C?logo=apachespark&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-7-47A248?logo=mongodb&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-compose-2496ED?logo=docker&logoColor=white)
+
 Pipeline de datos completo para analizar los viajes de taxis amarillos de Nueva York,
 construido íntegramente con herramientas open-source sobre Docker.
+
+![Dashboard ejecutivo generado por el pipeline](charts/06_dashboard_ejecutivo.png)
 
 ---
 
